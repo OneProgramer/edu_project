@@ -38,7 +38,7 @@ router.post('/get', auth, async (req, res) => {
                     exam.push({ name: value[i].name, mcq: value[i].mcq, date: value[i].date });
                 }
             }
-            res.json({ value: exam })
+            res.json({ value: exam[0] })
         }).catch(() => {
             res.json({ value: false });
         })
