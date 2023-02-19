@@ -29,16 +29,21 @@ router.post('/get', auth, async (req, res) => {
             }
             let exam = [];
             for (let i = 0; i < value.length; i++) {
-                let date = new Date(`${value[i].start}`)
-                date.setMinutes(date.getMinutes() + value[i].duration);
+                let date = new Date(value[i].date)
+                let now = new Date();
+                now.setHours(now.getHours() + 2);
+             
                 // dont show quiz if already finished or time out 
-                if (finished.includes(value[i].name) || (new Date() - date > 0) || (new Date() < value[i].start)) {
+                if (finished.includes(value[i].name) || (now > date ) ) {
                     continue;
                 } else {
+                 
                     exam.push({ name: value[i].name, mcq: value[i].mcq, date: value[i].date });
                 }
             }
-            res.json({ value: exam[0] })
+            res.json({ value: exam })
+
+
         }).catch(() => {
             res.json({ value: false });
         })
