@@ -4,21 +4,19 @@ const signModel = require('../user/sign');
 let quizSchema = mongoose.Schema({
     name:String,
     mcq:[],
-    start:Date,
-    duration:Date
+    date:String
 });
 
 let Quiz = mongoose.model('quiz',quizSchema);
 
 
-exports.addQuiz = (name,mcq,start,duration)=>{
+exports.addQuiz = (name,mcq,date)=>{
     return new Promise(async(resolve,reject)=>{
        await mongoose.connect(DB_URL).then(()=>{
             let quiz = new Quiz({
                 name:name,
                 mcq:mcq,
-                start:start,
-                duration,duration
+                date,date
             })
 
            return quiz.save();
